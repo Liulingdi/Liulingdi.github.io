@@ -358,14 +358,14 @@
 <p>这里和平时用的虚拟机镜像不太一样，是box文件 例如CentOS-7-x86_64-Vagrant-1710_01.VirtualBox.box</p>
 <h5 id="2-2-1-方式一-："><a href="#2-2-1-方式一-：" class="headerlink" title="2.2.1 方式一 ："></a>2.2.1 方式一 ：</h5><p> 官网下载地址  <a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search</a><br> 下载方式，安装好上面两个东西以后，创建一个目录，创建一个名字为Vagrantfile 的文件，没有后缀的，linux touch出来的那种，可以用gitbash ，touch一个文件， windows 不知道文本文档另存为能不能创建。</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vagrant.configure("2") do |config|</span><br><span class="line">  config.vm.box = "centos/7"</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上面这个centos/7就是你官网打开列表里的名字，<br>在控制台执行，就会自动从官网下载。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure></p>
+<p>上面这个centos/7就是你官网打开列表里的名字，<br>在控制台执行，就会自动从官网下载。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="2-2-2-方法二-："><a href="#2-2-2-方法二-：" class="headerlink" title="2.2.2 方法二 ："></a>2.2.2 方法二 ：</h5><p> 在这个网站： <a href="http://www.vagrantbox.es/" target="_blank" rel="noopener">http://www.vagrantbox.es/</a> </p>
 <p>使用方式，在控制台输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant box add &#123;title&#125; &#123;url&#125;</span><br><span class="line"><span class="meta">$</span> vagrant init &#123;title&#125;</span><br><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant box add &#123;title&#125; &#123;url&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vagrant init &#123;title&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure>
 <p>url 在网站copy就行 title 是你给你的镜像起的别名</p>
 <h5 id="2-2-3-方法三："><a href="#2-2-3-方法三：" class="headerlink" title="2.2.3 方法三："></a>2.2.3 方法三：</h5><p>centos 的官网有vagrant的镜像，提前下载<br>地址：<a href="https://cloud.centos.org/centos/7/vagrant/x86_64/images/" target="_blank" rel="noopener">https://cloud.centos.org/centos/7/vagrant/x86_64/images/</a><br>版本比较齐，本博客用的 这个</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CentOS-7-x86_64-Vagrant-1710_01.VirtualBox.box</span><br></pre></td></tr></table></figure>
-<p>下载完成后在你下载的文件目录下执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant box add centos7 &#123;你的镜像名&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下载完成后在你下载的文件目录下执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant box add centos7 &#123;你的镜像名&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p>centos7 是自己起的别名</p>
 <p>如果以上都顺利完成那你就成功了一大半了。</p>
 <h2 id="（二）创建自己的虚拟机群"><a href="#（二）创建自己的虚拟机群" class="headerlink" title="（二）创建自己的虚拟机群"></a>（二）创建自己的虚拟机群</h2><h3 id="1-新建Vagrant文件"><a href="#1-新建Vagrant文件" class="headerlink" title="1. 新建Vagrant文件"></a>1. 新建Vagrant文件</h3><ol>
@@ -379,7 +379,7 @@
 <li>(1..6).each do |mid| 这里只是创建6个，需要多个的可以自己改数字，下面关于hostname的设定，这里是前三个 取名 k8s-m1..3 后面三个取名为 k8s-n1..3 ，只是创建普通虚拟机群的可以自己稍微改动，固定名字</li>
 </ol>
 <h3 id="2-执行vagrant-up"><a href="#2-执行vagrant-up" class="headerlink" title="2. 执行vagrant up"></a>2. 执行vagrant up</h3><p>在文件目录下执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure>
 <p>正常情况下应该是直接创建完成，但是总有不测风云。win10 装过docker 的话，开启了hyper-v ，需要关闭，可能会关闭失败<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">错误Raw-mode is unavailable courtesy of Hyper-V.</span><br><span class="line">(VERR_SUPDRV_NO_RAW_MODE_HYPER_V_ROOT).</span><br><span class="line">返回 代码: E_FAIL (0x80004005)</span><br></pre></td></tr></table></figure></p>
 <p>打开这个官方工具网站，点击<a href="https://www.microsoft.com/en-us/download/details.aspx?id=53337" target="_blank" rel="noopener">下载</a>，并且在cmd 里执行 DG_Readiness_Tool_v3.6.ps1  -Ddisable，注意ps1 的文件名，可能版本不同，不要直接copy 命令，重启就ok，</p>
 <p>参考解决方案地址: <a href="https://www.jianshu.com/p/2e3429d45aea" target="_blank" rel="noopener">https://www.jianshu.com/p/2e3429d45aea</a><br><code></code></p>
@@ -457,8 +457,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/01/Xshell登录Vagrant方式/" rel="prev" title="a">
-                a <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/01/Xshell登录Vagrant方式/" rel="prev" title="Xshell登录Vagrant方式">
+                Xshell登录Vagrant方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
