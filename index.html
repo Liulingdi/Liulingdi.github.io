@@ -260,6 +260,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘玲弟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玲弟啊玲弟的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/Xshell登录Vagrant方式/" itemprop="url">a</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T20:12:18+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Xshell登录Vagrant方式"><a href="#Xshell登录Vagrant方式" class="headerlink" title="Xshell登录Vagrant方式"></a>Xshell登录Vagrant方式</h1><p>我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant，</p>
+<h2 id="vagrant账号登录"><a href="#vagrant账号登录" class="headerlink" title="vagrant账号登录"></a>vagrant账号登录</h2><p>在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant ssh-config</span><br><span class="line"></span><br><span class="line">Host k8s-m1</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2222</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-m1/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br><span class="line"></span><br><span class="line">Host k8s-n2</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2200</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-n2/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br></pre></td></tr></table></figure></p>
+<p>查看 hostname ，port，IdentityFile 这三个位置</p>
+<p><img src="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="xshell登录"></p>
+<p>有可能不能选择密码登录，默认是用密钥登录，浏览，文件，找到 刚刚的IdentityFile ，再输入密码vagrant 就可以使用vagrant 用户 ssh登录</p>
+<h2 id="root账号登录"><a href="#root账号登录" class="headerlink" title="root账号登录"></a>root账号登录</h2><p>vagrant登陆后，切换到root账号<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo -i</span><br></pre></td></tr></table></figure></p>
+<p>设置root的密码<br><img src="https://img-blog.csdnimg.cn/20181103164739100.png" alt="在这里插入图片描述"><br>修改 /etc/ssh/sshd_config 文件，（注意，vagrant用户下这个文件是只读的，可能什么也看不见）<br>修改 ssd_config 里 PermitRootLogin属性 改为yes ，并把前面的# 去掉<br><img src="https://img-blog.csdnimg.cn/20181103165116553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>PasswordAuthentication 改为yes 并且去掉 #<br><img src="https://img-blog.csdnimg.cn/20181103165228876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>保存退出，重启sshd服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> systemctl restart sshd</span><br></pre></td></tr></table></figure></p>
+<p>再通过xshell连接的时候，就可以用账号密码，root来登录了</p>
+<p><strong>问题</strong>：虽然xshell里都是用127.0.0.1:2222或者2200 这种登录的，但是也可以使用自己设置的ip 例如192.16.25.11:22 去登录，这里用自己设置的ip时端口则是22。<br>设置完成以后就和自己开的虚拟机没什么两样了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -362,14 +514,14 @@
 <p>这里和平时用的虚拟机镜像不太一样，是box文件 例如CentOS-7-x86_64-Vagrant-1710_01.VirtualBox.box</p>
 <h5 id="2-2-1-方式一-："><a href="#2-2-1-方式一-：" class="headerlink" title="2.2.1 方式一 ："></a>2.2.1 方式一 ：</h5><p> 官网下载地址  <a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search</a><br> 下载方式，安装好上面两个东西以后，创建一个目录，创建一个名字为Vagrantfile 的文件，没有后缀的，linux touch出来的那种，可以用gitbash ，touch一个文件， windows 不知道文本文档另存为能不能创建。</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vagrant.configure("2") do |config|</span><br><span class="line">  config.vm.box = "centos/7"</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>上面这个centos/7就是你官网打开列表里的名字，<br>在控制台执行，就会自动从官网下载。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这个centos/7就是你官网打开列表里的名字，<br>在控制台执行，就会自动从官网下载。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure></p>
 <h5 id="2-2-2-方法二-："><a href="#2-2-2-方法二-：" class="headerlink" title="2.2.2 方法二 ："></a>2.2.2 方法二 ：</h5><p> 在这个网站： <a href="http://www.vagrantbox.es/" target="_blank" rel="noopener">http://www.vagrantbox.es/</a> </p>
 <p>使用方式，在控制台输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant box add &#123;title&#125; &#123;url&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vagrant init &#123;title&#125;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant box add &#123;title&#125; &#123;url&#125;</span><br><span class="line"><span class="meta">$</span> vagrant init &#123;title&#125;</span><br><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure>
 <p>url 在网站copy就行 title 是你给你的镜像起的别名</p>
 <h5 id="2-2-3-方法三："><a href="#2-2-3-方法三：" class="headerlink" title="2.2.3 方法三："></a>2.2.3 方法三：</h5><p>centos 的官网有vagrant的镜像，提前下载<br>地址：<a href="https://cloud.centos.org/centos/7/vagrant/x86_64/images/" target="_blank" rel="noopener">https://cloud.centos.org/centos/7/vagrant/x86_64/images/</a><br>版本比较齐，本博客用的 这个</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CentOS-7-x86_64-Vagrant-1710_01.VirtualBox.box</span><br></pre></td></tr></table></figure>
-<p>下载完成后在你下载的文件目录下执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant box add centos7 &#123;你的镜像名&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>下载完成后在你下载的文件目录下执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant box add centos7 &#123;你的镜像名&#125;</span><br></pre></td></tr></table></figure></p>
 <p>centos7 是自己起的别名</p>
 <p>如果以上都顺利完成那你就成功了一大半了。</p>
 <h2 id="（二）创建自己的虚拟机群"><a href="#（二）创建自己的虚拟机群" class="headerlink" title="（二）创建自己的虚拟机群"></a>（二）创建自己的虚拟机群</h2><h3 id="1-新建Vagrant文件"><a href="#1-新建Vagrant文件" class="headerlink" title="1. 新建Vagrant文件"></a>1. 新建Vagrant文件</h3><ol>
@@ -383,7 +535,7 @@
 <li>(1..6).each do |mid| 这里只是创建6个，需要多个的可以自己改数字，下面关于hostname的设定，这里是前三个 取名 k8s-m1..3 后面三个取名为 k8s-n1..3 ，只是创建普通虚拟机群的可以自己稍微改动，固定名字</li>
 </ol>
 <h3 id="2-执行vagrant-up"><a href="#2-执行vagrant-up" class="headerlink" title="2. 执行vagrant up"></a>2. 执行vagrant up</h3><p>在文件目录下执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vagrant up</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant up</span><br></pre></td></tr></table></figure>
 <p>正常情况下应该是直接创建完成，但是总有不测风云。win10 装过docker 的话，开启了hyper-v ，需要关闭，可能会关闭失败<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">错误Raw-mode is unavailable courtesy of Hyper-V.</span><br><span class="line">(VERR_SUPDRV_NO_RAW_MODE_HYPER_V_ROOT).</span><br><span class="line">返回 代码: E_FAIL (0x80004005)</span><br></pre></td></tr></table></figure></p>
 <p>打开这个官方工具网站，点击<a href="https://www.microsoft.com/en-us/download/details.aspx?id=53337" target="_blank" rel="noopener">下载</a>，并且在cmd 里执行 DG_Readiness_Tool_v3.6.ps1  -Ddisable，注意ps1 的文件名，可能版本不同，不要直接copy 命令，重启就ok，</p>
 <p>参考解决方案地址: <a href="https://www.jianshu.com/p/2e3429d45aea" target="_blank" rel="noopener">https://www.jianshu.com/p/2e3429d45aea</a><br><code></code></p>
@@ -601,7 +753,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
