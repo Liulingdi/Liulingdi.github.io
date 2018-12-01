@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="玲弟啊玲弟的博客">
+  <meta name="keywords" content="k8s,vagrant,">
 
 
 
@@ -86,17 +86,18 @@
 
 
 
-<meta name="description" content="感谢开源的你们">
-<meta name="keywords" content="emmm">
-<meta property="og:type" content="website">
-<meta property="og:title" content="玲弟啊玲弟的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="k8s搭建之初始环境准备-虚拟机篇（一）   我相信很多搭建k8s 集群的小伙伴最头疼的一件事情就是，我没有那么多机器啊，别说高可用，就算是一个master一个node 用VM都烦的很，安装的哪个图形化就要点老半天，snapshot 快照要是没有准备，环境搞得乱七八糟，那真的是心态爆炸，遇上重装，拜拜了您勒。   如果有钱就去搞个阿里云，什么什么云的服务器，租个三个月好好搞（ps : 不要为了省钱">
+<meta name="keywords" content="k8s,vagrant">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s搭建之初始环境准备-虚拟机篇（一）">
+<meta property="og:url" content="http://yoursite.com/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/index.html">
 <meta property="og:site_name" content="玲弟啊玲弟的博客">
-<meta property="og:description" content="感谢开源的你们">
+<meta property="og:description" content="k8s搭建之初始环境准备-虚拟机篇（一）   我相信很多搭建k8s 集群的小伙伴最头疼的一件事情就是，我没有那么多机器啊，别说高可用，就算是一个master一个node 用VM都烦的很，安装的哪个图形化就要点老半天，snapshot 快照要是没有准备，环境搞得乱七八糟，那真的是心态爆炸，遇上重装，拜拜了您勒。   如果有钱就去搞个阿里云，什么什么云的服务器，租个三个月好好搞（ps : 不要为了省钱">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-01T06:01:58.310Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="玲弟啊玲弟的博客">
-<meta name="twitter:description" content="感谢开源的你们">
+<meta name="twitter:title" content="k8s搭建之初始环境准备-虚拟机篇（一）">
+<meta name="twitter:description" content="k8s搭建之初始环境准备-虚拟机篇（一）   我相信很多搭建k8s 集群的小伙伴最头疼的一件事情就是，我没有那么多机器啊，别说高可用，就算是一个master一个node 用VM都烦的很，安装的哪个图形化就要点老半天，snapshot 快照要是没有准备，环境搞得乱七八糟，那真的是心态爆炸，遇上重装，拜拜了您勒。   如果有钱就去搞个阿里云，什么什么云的服务器，租个三个月好好搞（ps : 不要为了省钱">
 
 
 
@@ -126,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/">
 
 
 
 
 
-  <title>玲弟啊玲弟的博客</title>
+  <title>k8s搭建之初始环境准备-虚拟机篇（一） | 玲弟啊玲弟的博客</title>
   
 
 
@@ -151,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -245,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -277,9 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/" itemprop="url">k8s搭建之初始环境准备-虚拟机篇（一）</a></h1>
+          <h1 class="post-title" itemprop="name headline">k8s搭建之初始环境准备-虚拟机篇（一）</h1>
         
 
         <div class="post-meta">
@@ -351,9 +349,7 @@
       
 
       
-        
-          
-            <h1 id="k8s搭建之初始环境准备-虚拟机篇（一）"><a href="#k8s搭建之初始环境准备-虚拟机篇（一）" class="headerlink" title="k8s搭建之初始环境准备-虚拟机篇（一）"></a>k8s搭建之初始环境准备-虚拟机篇（一）</h1><p>   我相信很多搭建k8s 集群的小伙伴最头疼的一件事情就是，我没有那么多机器啊，别说高可用，就算是一个master一个node 用VM都烦的很，安装的哪个图形化就要点老半天，snapshot 快照要是没有准备，环境搞得乱七八糟，那真的是心态爆炸，遇上重装，拜拜了您勒。<br>   如果有钱就去搞个阿里云，什么什么云的服务器，租个三个月好好搞（ps : 不要为了省钱，像博主一样，几个账号各自买esc，不同租户网络是隔离的，对于网络互通的k8s来说比较不友好，搭建成功以后会各种服务访问失败，而且不同云服务商的网络也是不一样的，有的可能有解决方案对于跨租户VPC互通，有点就麻烦，不要得不偿失了）<br>   公司有服务器让你用就另说了，物理机的话也是难受的一批，类似openstack的解决方案是最好的。<br>   当然如果你什么都没有怎么办呢，本地虚拟机还是最好的学习手段。本文用vagrant + vistualbox,快速生成本地虚拟机环境，以及一些可能我自己遇到的坑。文章可能比较长，比较繁琐，多比较几篇文章，多操作，每个人都可以总结出自己的经验来。</p>
+        <h1 id="k8s搭建之初始环境准备-虚拟机篇（一）"><a href="#k8s搭建之初始环境准备-虚拟机篇（一）" class="headerlink" title="k8s搭建之初始环境准备-虚拟机篇（一）"></a>k8s搭建之初始环境准备-虚拟机篇（一）</h1><p>   我相信很多搭建k8s 集群的小伙伴最头疼的一件事情就是，我没有那么多机器啊，别说高可用，就算是一个master一个node 用VM都烦的很，安装的哪个图形化就要点老半天，snapshot 快照要是没有准备，环境搞得乱七八糟，那真的是心态爆炸，遇上重装，拜拜了您勒。<br>   如果有钱就去搞个阿里云，什么什么云的服务器，租个三个月好好搞（ps : 不要为了省钱，像博主一样，几个账号各自买esc，不同租户网络是隔离的，对于网络互通的k8s来说比较不友好，搭建成功以后会各种服务访问失败，而且不同云服务商的网络也是不一样的，有的可能有解决方案对于跨租户VPC互通，有点就麻烦，不要得不偿失了）<br>   公司有服务器让你用就另说了，物理机的话也是难受的一批，类似openstack的解决方案是最好的。<br>   当然如果你什么都没有怎么办呢，本地虚拟机还是最好的学习手段。本文用vagrant + vistualbox,快速生成本地虚拟机环境，以及一些可能我自己遇到的坑。文章可能比较长，比较繁琐，多比较几篇文章，多操作，每个人都可以总结出自己的经验来。</p>
 <h2 id="一-下载安装-vagrant"><a href="#一-下载安装-vagrant" class="headerlink" title="(一) 下载安装 vagrant"></a>(一) 下载安装 vagrant</h2><p>###1. 什么是vagrant</p>
 <p>Vagrant是一款用于构建及配置虚拟开发环境的软件，基于Ruby,主要以命令行的方式运行。主要使用Oracle的开源VirtualBox虚拟化系统，与Chef，Salt，Puppet等环境配置管理软件搭配使用， 可以实行快速虚拟开发环境的构建。<br>早期以VirtualBox为对象，1.1以后的版本中开始对应VMware等虚拟化软件，包括Amazon EC2之类服务器环境的对应。<br> vagrant 是支持win10的 hyper-v 的，但是这次还没试用，还是用的virtualBox 。</p>
 <h3 id="2-下载安装vagrant"><a href="#2-下载安装vagrant" class="headerlink" title="2.下载安装vagrant"></a>2.下载安装vagrant</h3><h4 id="2-1-安装vagrant"><a href="#2-1-安装vagrant" class="headerlink" title="2.1 安装vagrant"></a>2.1 安装vagrant</h4><p>`官网下载地址 <a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">https://www.vagrantup.com/downloads.html</a> 选自己的系统版本就行了</p>
@@ -391,8 +387,6 @@
 <p>可以从控制台免密码，k8s-m1默认登录的用户是vagrant 密码vagrant，可以手动切换root，但是比较麻烦，点击<br> <a href="https://blog.csdn.net/github_38097011/article/details/83688607" target="_blank" rel="noopener">《xshell 登陆vagrant》</a><br>看我另外一篇博客 《通过xshell 登陆vagrant 》，免密码和用账号密码登陆的介绍。<code></code></p>
 <h3 id="2-优雅的关机-vagrant-halt"><a href="#2-优雅的关机-vagrant-halt" class="headerlink" title="2. 优雅的关机 vagrant halt"></a>2. 优雅的关机 vagrant halt</h3><p>更多的命令网上找有很多，vagrant up 可以唤醒，还有备份等自己决定。</p>
 
-          
-        
       
     </div>
     
@@ -402,147 +396,72 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatreward.png" alt="刘玲弟 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipayreward.png" alt="刘玲弟 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘玲弟">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="玲弟啊玲弟的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T09:52:35+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
           
-            
+            <a href="/tags/vagrant/" rel="tag"># vagrant</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/01/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -552,10 +471,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -563,6 +483,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -583,8 +507,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -662,6 +595,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s搭建之初始环境准备-虚拟机篇（一）"><span class="nav-number">1.</span> <span class="nav-text">k8s搭建之初始环境准备-虚拟机篇（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-下载安装-vagrant"><span class="nav-number">1.1.</span> <span class="nav-text">(一) 下载安装 vagrant</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下载安装vagrant"><span class="nav-number">1.1.1.</span> <span class="nav-text">2.下载安装vagrant</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-安装vagrant"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">2.1 安装vagrant</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-安装virtualbox"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.2 安装virtualbox</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-方式一-："><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">2.2.1 方式一 ：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-方法二-："><span class="nav-number">1.1.1.2.2.</span> <span class="nav-text">2.2.2 方法二 ：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-方法三："><span class="nav-number">1.1.1.2.3.</span> <span class="nav-text">2.2.3 方法三：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二）创建自己的虚拟机群"><span class="nav-number">1.2.</span> <span class="nav-text">（二）创建自己的虚拟机群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建Vagrant文件"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 新建Vagrant文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-执行vagrant-up"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 执行vagrant up</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（三）连接我们的虚拟机"><span class="nav-number">1.3.</span> <span class="nav-text">（三）连接我们的虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-连接虚拟机-vagrant-ssh"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 连接虚拟机 vagrant ssh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-优雅的关机-vagrant-halt"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 优雅的关机 vagrant halt</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -802,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
