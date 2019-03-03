@@ -260,6 +260,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/配置中心Apollo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘玲弟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玲弟啊玲弟的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/03/配置中心Apollo/" itemprop="url">配置中心Apollo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T21:26:28+08:00">
+                2019-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/微服务/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>@<a href="配置中心Apollo多环境部署">TOC</a></p>
+<h1 id="关于Apollo"><a href="#关于Apollo" class="headerlink" title="关于Apollo"></a>关于Apollo</h1><p>Apollo（阿波罗）是携程框架部门研发的分布式配置中心，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性，适用于微服务配置管理场景。</p>
+<p>github地址：<a href="https://github.com/ctripcorp/apollo" target="_blank" rel="noopener">https://github.com/ctripcorp/apollo</a><br>在官方的wiki 里，有很多资料，包括部署 客户端应用等<br>github wiki 地址：<a href="https://github.com/ctripcorp/apollo/wiki" target="_blank" rel="noopener">https://github.com/ctripcorp/apollo/wiki</a></p>
+<h2 id="Apollo-与-Springcloud-config"><a href="#Apollo-与-Springcloud-config" class="headerlink" title="Apollo 与 Springcloud config"></a>Apollo 与 Springcloud config</h2><p>Apollo 是携程框架研发部门研发的一款基于springboot和springcloud 写的一个配置中心项目，使用长连接实现配置下发，现在已经开源，可以秒级感应热部署配置文件。</p>
+<p>Springcloud Config 是springcloud 全家桶里的一员，基于git 做的配置中心，对于热部署配置文件来说，还需要配合 git 的webhook 触发 springcloud bus，达到配置下发，从实现机制来说，Apollo 是要快上许多。而完全依赖于git 的config 不仅配置麻烦，而且感觉会很low。</p>
+<p>先说一下我的使用感受，部门里一个微服务支付的项目用的就是springcloud config 配置中心</p>
+<p><code>优点：</code></p>
+<ol>
+<li>基于git（当然svn，jdbc，本地缓存也支持），对于github 或者 gitlab 来讲比较熟悉，git的优点可以应用于配置文件上<br>2.配置文件管理一幕了然，公有的配置文件或者项目私有的配置，按照规范填写，分类后比较好找，按照项目，按照模块建包，一目了然<br>3…. （我是个不善于总结优点的人）</li>
+</ol>
+<p><code>来说说缺点：</code></p>
+<ol>
+<li>如果要实现热部署配置文件，需要配合springcloud bus，在github上做webhook ，依赖性很强，配置复杂，实时性也一般，不做热加载的配置下发，那配置中心将毫无意义。<br>2.配置复杂意味着，且对代码有侵入，学习成本高，个人不是很喜欢。<br>3.配置文件命名规则，很麻烦，配置都在命名上，根据命名搜索，没有可视化的配置<br>4.权限控制，配置下发基于git的权限，也是成也git 败也git ，不能很好掌控配置下发的权利<br>5.不支持多语言客户端，全家桶的问题<br>6….(我还是个不善于总结缺点的人)</li>
+</ol>
+<p>关于Apollo ，使用感受非常爽，先吹他一个彩虹屁。<br><code>优点</code>：</p>
+<ul>
+<li>无需过多的依赖，原生java，.net 都很好应用，多语言客户端无需过多的依赖，原生java，springboot，.net 都很好应用，多语言客户端</li>
+<li>依赖少，不基于git，部署简单，即能实现动态加载配置，客户端配置也简单</li>
+<li>可视化操作，权限控制，都让人很爽</li>
+<li>多环境支持，可以 dev fat uat pro，提供分布式部署</li>
+</ul>
+<p><code>缺点</code>：</p>
+<ul>
+<li><del>可能还是使用太少，项目一多，文件数量一多，文件关系一复杂，配置起来比较头晕目眩，查找项目也比较难找</del></li>
+<li>本来以为上面这个是缺点，但是写着写着想到了还是好管理的，否认了我自己，写文章的时候没有参考很多，只是把自己想到的记录下，以后会补充，有很多不正确的地方，也需要读者多多指教。保持着尽量严谨和实践证实的心态写文章。</li>
+</ul>
+<h1 id="Apollo的部署"><a href="#Apollo的部署" class="headerlink" title="Apollo的部署"></a>Apollo的部署</h1><h2 id="多环境部署"><a href="#多环境部署" class="headerlink" title="多环境部署"></a>多环境部署</h2><p>首先是使用多环境部署，关于Apollo 的环境，支持dev，fat，uat，pro 四种部署环境。</p>
+<p>Apollo 包括 服务端，页面前端 与 自己的客户</p>
+<p>每一个环境就是一个服务端，前端页面portal 可以集成多个环境，多环境就是比单环境多增加了几个服务端罢了。</p>
+<p>如果只想建单环境，起一个服务端即可。</p>
+<p>例如<br>单环境：<br>在192.16.35.11 上部署dev 的服务端（Apollo-adminserver + Apollo-configserver+portal）</p>
+<p>多环境：<br>在192.16.35.11 上部署dev 的服务端（Apollo-adminserver + Apollo-configserver）<br>在192.16.35.12 上部署pro 的服务端（Apollo-adminserver + Apollo-configserver）</p>
+<p>最后在生产的机器192.16.35.12 上配置 前端页面服务就行 （Apollo-portal）</p>
+<h2 id="源码编译方式传统部署-多环境"><a href="#源码编译方式传统部署-多环境" class="headerlink" title="源码编译方式传统部署(多环境)"></a>源码编译方式传统部署(多环境)</h2><p>==部署环境：==<br>maven 3.3.9<br>jdk 1.8<br>Apollo v0.11.0<br>dev 服务器 192.16.35.10 （admin-server 与 config-server）<br>pro  服务器  192.16.35.11（admin-server ， config-server，portal）</p>
+<h3 id="下载项目源码"><a href="#下载项目源码" class="headerlink" title="下载项目源码"></a>下载项目源码</h3><p>v1.0.0 之后是用springboot 2.0 写的，而我们自己还是1.5.10<br>官方文档部署里有声明springboot的某些配置需要v0.10.0 之后<br>所以这里选了v0.11.0 版本<br>下载地址：<a href="https://github.com/ctripcorp/apollo/releases" target="_blank" rel="noopener">https://github.com/ctripcorp/apollo/releases</a><br>自己选择脚本下载tar.gz 的包</p>
+<p>然后上传到linux 服务器上，这里采用的是RedHat7.4，centos同理<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf apollo-0.11.0.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>解压到自己的服务器上。<br><img src="https://img-blog.csdnimg.cn/20181212145647769.png" alt="在这里插入图片描述"><br>会看到如下项目路径，windows 使用idea 打开也行</p>
+<h3 id="执行数据库sql"><a href="#执行数据库sql" class="headerlink" title="执行数据库sql"></a>执行数据库sql</h3><p>进入scripts 文件夹 里面有个sql 文件，一个是configdb 服务端的sql，一个是portaldb 的sql，每一个服务端需要一个configdb，如果没有多个mysql服务，暂时建在同一个mysql服务下，但是要修改configdb的数据库名字</p>
+<p>以下两处 ApolloConfigDB 改为 ApolloConfigDB2<br><img src="https://img-blog.csdnimg.cn/20181212150824467.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这样在你的mysql 上应该有一个==ApolloConfigDB== 一个==ApolloConfigDB2== 一个==ApolloPortalDB== 三个数据库</p>
+<p>分别对应dev环境的数据库 pro 环境的数据库 和 portal 的数据库</p>
+<h3 id="修改build-配置文件，编译项目"><a href="#修改build-配置文件，编译项目" class="headerlink" title="修改build 配置文件，编译项目"></a>修改build 配置文件，编译项目</h3><p>在刚刚的sql 同级目录下，有个build.sh 。 windows用bat<br>修改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> apollo config db info</span></span><br><span class="line">apollo_config_db_url=jdbc:mysql://your-mysqldb:port/ApolloConfigDB?characterEncoding=utf8</span><br><span class="line">apollo_config_db_username=root</span><br><span class="line">apollo_config_db_password=******</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> apollo portal db info</span></span><br><span class="line">apollo_portal_db_url=jdbc:mysql://your-mysqldb:port/ApolloPortalDB?characterEncoding=utf8</span><br><span class="line">apollo_portal_db_username=root</span><br><span class="line">apollo_portal_db_password=******</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> meta server url, different environments should have different meta server addresses</span></span><br><span class="line">dev_meta=http://dev:8080</span><br><span class="line"><span class="meta">#</span><span class="bash">fat_meta=http://fill-in-fat-meta-server:8080</span></span><br><span class="line"><span class="meta">#</span><span class="bash">uat_meta=http://fill-in-uat-meta-server:8080</span></span><br><span class="line">pro_meta=http://fill-in-pro-meta-server:8080</span><br><span class="line"></span><br><span class="line">META_SERVERS_OPTS="-Ddev_meta=$dev_meta "</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> =============== Please <span class="keyword">do</span> not modify the following content =============== <span class="comment">#</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这个就很明白了<br>dev 服务器上不启动portal ，不需要修改portal 的信息，只需要修改apollo config db 的数据库连接信息，连接到 apollo config db </p>
+<p>pro 服务器上需要启动portal ，则需要修改portal 的db 信息，注意修改这里apollo config db 的数据库名字已经变成 ApolloConfigDB2了，<br>另外 meta server 不建议使用8080 端口，可以改为其他，如7070<br>dev_meta ip 用dev环境的 ip<br>pro_meta 使用localhost即可<br>META_SERVERS_OPTS 使用了哪几个环境就填哪几个<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> meta server url, different environments should have different meta server addresses</span></span><br><span class="line">dev_meta=http://192.16.35.10:7070</span><br><span class="line"><span class="meta">#</span><span class="bash">fat_meta=http://fill-in-fat-meta-server:8080</span></span><br><span class="line"><span class="meta">#</span><span class="bash">uat_meta=http://fill-in-uat-meta-server:8080</span></span><br><span class="line">pro_meta=http://localhost:7070</span><br><span class="line"></span><br><span class="line">META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dpro_meta=$pro_meta "</span><br></pre></td></tr></table></figure></p>
+<p>最后两台服务器分别执行 ./build.sh 编译源码</p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>第一次编译需要点时间</p>
+<p>编译完成后，在各个项目下会出现target文件，里面有个zip文件夹<br>例如: apollo-adminservice-0.11.0-github.zip<br><img src="https://img-blog.csdnimg.cn/20181212152504955.png" alt="在这里插入图片描述"></p>
+<p>这里只需要关注三个项目，圈圈出来的<br><img src="https://img-blog.csdnimg.cn/20181212152609798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>在dev服务器下 解压 adminservice 和configservice<br>在pro服务器下 解压adminservice 和configservice，portal<br>解压到test文件夹下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip apollo-adminservice-0.11.0-github.zip -d test</span><br></pre></td></tr></table></figure></p>
+<p>解压完毕后启动项目，在解压出来的test下有个script文件夹，里面有启动脚本<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./startup.sh</span><br></pre></td></tr></table></figure></p>
+<p>注意的是 adminservice 直接启动，configservice 刚刚修改了端口7070，需要修改startup.sh 里的端口设置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SERVER_PORT=7070</span><br></pre></td></tr></table></figure></p>
+<p>portal在启动前修改数据库参数,apollo.portal.envs  value 改为 dev,pro 有多个环境的，直接 逗号然后加上去就行，然后启动portal，打开192.16.35.11:8070 (pro服务器:port）,登录用户/密码 apollo/admin</p>
+<p><img src="https://img-blog.csdnimg.cn/20181212153457432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="springboot-客户端demo-（待续）"><a href="#springboot-客户端demo-（待续）" class="headerlink" title="springboot 客户端demo （待续）"></a>springboot 客户端demo （待续）</h1><h1 id="Docker-or-Kubernetes-方式-（待续）"><a href="#Docker-or-Kubernetes-方式-（待续）" class="headerlink" title="Docker or Kubernetes 方式 （待续）"></a>Docker or Kubernetes 方式 （待续）</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/写博客的目的/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -447,6 +640,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/微服务/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1409,7 +1624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1431,7 +1646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
