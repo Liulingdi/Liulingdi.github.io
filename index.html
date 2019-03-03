@@ -331,8 +331,7 @@
       
         
           
-            <p>devops 自动化流水构建（gitlab+gerrit+jenkins+sonar）</p>
-<p><strong>摘要</strong>：关于当下较为流行的devops概念，有了docker 容器之后，才能够真正的让开发人员快速和方便的掌握服务运维的方式，并且用搭建自动化流水构建，节省许多运维成本和开发效率。本文介绍主要架构及部署方式，是以自己公司的实战经验为总结，不一定很准确，但是能够提供一个大致的方向。</p>
+            <h3 id="devops-自动化流水构建（gitlab-gerrit-jenkins-sonar）"><a href="#devops-自动化流水构建（gitlab-gerrit-jenkins-sonar）" class="headerlink" title="devops 自动化流水构建（gitlab+gerrit+jenkins+sonar）"></a>devops 自动化流水构建（gitlab+gerrit+jenkins+sonar）</h3><p><strong>摘要</strong>：关于当下较为流行的devops概念，有了docker 容器之后，才能够真正的让开发人员快速和方便的掌握服务运维的方式，并且用搭建自动化流水构建，节省许多运维成本和开发效率。本文介绍主要架构及部署方式，是以自己公司的实战经验为总结，不一定很准确，但是能够提供一个大致的方向。</p>
 <h4 id="什么是devops？"><a href="#什么是devops？" class="headerlink" title="什么是devops？"></a>什么是devops？</h4><p>按照惯例，先介绍概念。</p>
 <p><strong>DevOps</strong>（<strong>Dev</strong>elopment和<strong>Op</strong>erations的组合词）是一种重视“软件开发人员（Dev）”和“IT运维技术人员（Ops）”之间沟通合作的文化、运动或惯例。透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。</p>
 <blockquote>
@@ -340,7 +339,7 @@
 </blockquote>
 <p>最重要的一点就是，通过自动化的发布，使得开发与运维人员可以更加敏捷和频繁的发布应用。</p>
 <p>如何做到自动化发布，就是今天的内容。</p>
-<h4 id="自动化流水持续集成的架构"><a href="#自动化流水持续集成的架构" class="headerlink" title="自动化流水持续集成的架构"></a>自动化流水持续集成的架构</h4><p><img src="/2019/03/03/devops自动化流水构建/D:/hexo\source\_posts\devops自动化流水构建\devops架构.png" alt="devops架构"></p>
+<h4 id="自动化流水持续集成的架构"><a href="#自动化流水持续集成的架构" class="headerlink" title="自动化流水持续集成的架构"></a>自动化流水持续集成的架构</h4><p><img src="/2019/03/03/devops自动化流水构建/devops架构.png" alt="devops架构"></p>
 <p>这是当前较为主流的方案，也是我们公司近两年一直在使用的</p>
 <ul>
 <li><strong>gitlab</strong> ： 私有化的gitlab 代码仓库，拥有私有化的代码仓库是最基础的一步。</li>
