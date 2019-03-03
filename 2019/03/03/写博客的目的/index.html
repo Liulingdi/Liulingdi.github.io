@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="vagrant,k8s,">
+  <meta name="keywords" content="随笔,">
 
 
 
@@ -86,23 +86,18 @@
 
 
 
-<meta name="description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
-<meta name="keywords" content="vagrant,k8s">
+<meta name="description" content="写博客的目的这个放在前面，提醒自己。 做一件事情，不能太功利，做一件事情，要想清楚，是自己想要做，还是不得不做，还是说做给别人看 我写博客 一是为了技术的沉淀，很久以后回头一看，原来自己会的那么多呢 二是为了提醒自己，做程序员是自己想做，而不只是为了一份工作，不然工作也太煎熬了 三是提升写作和表达能力，总结能力，我也喜欢有感而发，从骨子里觉得自己应该是个文青">
+<meta name="keywords" content="随笔">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xshell登录Vagrant方式">
-<meta property="og:url" content="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/index.html">
+<meta property="og:title" content="写博客的目的">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/写博客的目的/index.html">
 <meta property="og:site_name" content="玲弟啊玲弟的博客">
-<meta property="og:description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
+<meta property="og:description" content="写博客的目的这个放在前面，提醒自己。 做一件事情，不能太功利，做一件事情，要想清楚，是自己想要做，还是不得不做，还是说做给别人看 我写博客 一是为了技术的沉淀，很久以后回头一看，原来自己会的那么多呢 二是为了提醒自己，做程序员是自己想做，而不只是为了一份工作，不然工作也太煎熬了 三是提升写作和表达能力，总结能力，我也喜欢有感而发，从骨子里觉得自己应该是个文青">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103164739100.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103165116553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103165228876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2018-12-01T12:15:44.728Z">
+<meta property="og:updated_time" content="2019-03-03T12:45:49.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xshell登录Vagrant方式">
-<meta name="twitter:description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:title" content="写博客的目的">
+<meta name="twitter:description" content="写博客的目的这个放在前面，提醒自己。 做一件事情，不能太功利，做一件事情，要想清楚，是自己想要做，还是不得不做，还是说做给别人看 我写博客 一是为了技术的沉淀，很久以后回头一看，原来自己会的那么多呢 二是为了提醒自己，做程序员是自己想做，而不只是为了一份工作，不然工作也太煎熬了 三是提升写作和表达能力，总结能力，我也喜欢有感而发，从骨子里觉得自己应该是个文青">
 
 
 
@@ -132,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/写博客的目的/">
 
 
 
 
 
-  <title>Xshell登录Vagrant方式 | 玲弟啊玲弟的博客</title>
+  <title>写博客的目的 | 玲弟啊玲弟的博客</title>
   
 
 
@@ -265,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/写博客的目的/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘玲弟">
@@ -282,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Xshell登录Vagrant方式</h1>
+          <h1 class="post-title" itemprop="name headline">写博客的目的</h1>
         
 
         <div class="post-meta">
@@ -294,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T20:12:18+08:00">
-                2018-12-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T20:45:05+08:00">
+                2019-03-03
               </time>
             
 
@@ -317,8 +312,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index">
-                    <span itemprop="name">k8s</span>
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
                   </a>
                 </span>
 
@@ -354,17 +349,11 @@
       
 
       
-        <h1 id="Xshell登录Vagrant方式"><a href="#Xshell登录Vagrant方式" class="headerlink" title="Xshell登录Vagrant方式"></a>Xshell登录Vagrant方式</h1><p>我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant，</p>
-<h2 id="vagrant账号登录"><a href="#vagrant账号登录" class="headerlink" title="vagrant账号登录"></a>vagrant账号登录</h2><p>在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant ssh-config</span><br><span class="line"></span><br><span class="line">Host k8s-m1</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2222</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-m1/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br><span class="line"></span><br><span class="line">Host k8s-n2</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2200</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-n2/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br></pre></td></tr></table></figure></p>
-<p>查看 hostname ，port，IdentityFile 这三个位置</p>
-<p><img src="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="xshell登录"></p>
-<p>有可能不能选择密码登录，默认是用密钥登录，浏览，文件，找到 刚刚的IdentityFile ，再输入密码vagrant 就可以使用vagrant 用户 ssh登录</p>
-<h2 id="root账号登录"><a href="#root账号登录" class="headerlink" title="root账号登录"></a>root账号登录</h2><p>vagrant登陆后，切换到root账号<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo -i</span><br></pre></td></tr></table></figure></p>
-<p>设置root的密码<br><img src="https://img-blog.csdnimg.cn/20181103164739100.png" alt="在这里插入图片描述"><br>修改 /etc/ssh/sshd_config 文件，（注意，vagrant用户下这个文件是只读的，可能什么也看不见）<br>修改 ssd_config 里 PermitRootLogin属性 改为yes ，并把前面的# 去掉<br><img src="https://img-blog.csdnimg.cn/20181103165116553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>PasswordAuthentication 改为yes 并且去掉 #<br><img src="https://img-blog.csdnimg.cn/20181103165228876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>保存退出，重启sshd服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> systemctl restart sshd</span><br></pre></td></tr></table></figure></p>
-<p>再通过xshell连接的时候，就可以用账号密码，root来登录了</p>
-<p><strong>问题</strong>：虽然xshell里都是用127.0.0.1:2222或者2200 这种登录的，但是也可以使用自己设置的ip 例如192.16.25.11:22 去登录，这里用自己设置的ip时端口则是22。<br>设置完成以后就和自己开的虚拟机没什么两样了。</p>
+        <h3 id="写博客的目的"><a href="#写博客的目的" class="headerlink" title="写博客的目的"></a>写博客的目的</h3><p>这个放在前面，提醒自己。</p>
+<p>做一件事情，不能太功利，做一件事情，要想清楚，是自己想要做，还是不得不做，还是说做给别人看</p>
+<p>我写博客 一是为了技术的沉淀，很久以后回头一看，原来自己会的那么多呢</p>
+<p>二是为了提醒自己，做程序员是自己想做，而不只是为了一份工作，不然工作也太煎熬了</p>
+<p>三是提升写作和表达能力，总结能力，我也喜欢有感而发，从骨子里觉得自己应该是个文青</p>
 
       
     </div>
@@ -411,9 +400,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vagrant/" rel="tag"># vagrant</a>
-          
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/随笔/" rel="tag"># 随笔</a>
           
         </div>
       
@@ -426,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/" rel="next" title="k8s搭建之初始环境准备-虚拟机篇（一）">
-                <i class="fa fa-chevron-left"></i> k8s搭建之初始环境准备-虚拟机篇（一）
+              <a href="/2019/03/03/分布式事务浅析/" rel="next" title="分布式事务浅析">
+                <i class="fa fa-chevron-left"></i> 分布式事务浅析
               </a>
             
           </div>
@@ -435,10 +422,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/03/eureka浅析/" rel="prev" title="eureka浅析">
-                eureka浅析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Xshell登录Vagrant方式"><span class="nav-number">1.</span> <span class="nav-text">Xshell登录Vagrant方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vagrant账号登录"><span class="nav-number">1.1.</span> <span class="nav-text">vagrant账号登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root账号登录"><span class="nav-number">1.2.</span> <span class="nav-text">root账号登录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写博客的目的"><span class="nav-number">1.</span> <span class="nav-text">写博客的目的</span></a></li></ol></div>
             
 
           </div>

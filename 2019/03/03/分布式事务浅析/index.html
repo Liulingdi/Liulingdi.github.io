@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="vagrant,k8s,">
+  <meta name="keywords" content="分布式事务,">
 
 
 
@@ -86,23 +86,18 @@
 
 
 
-<meta name="description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
-<meta name="keywords" content="vagrant,k8s">
+<meta name="description" content="分布式事务摘要： 在做单体服务的微服务改造时，碰到的问题，大多数时候，使用本地事务就可以了，在业务拆分的时候也尽量避免了分布式事务，但是不免遇到分布式事务的情况。就稍微看了一些关于分布式事务的东西。文章写的好的人很多，我会把参考的文章放在底部，本文是自己对分布式事务的一个概括总结。 什么是分布式事务？分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不">
+<meta name="keywords" content="分布式事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xshell登录Vagrant方式">
-<meta property="og:url" content="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/index.html">
+<meta property="og:title" content="分布式事务浅析">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/分布式事务浅析/index.html">
 <meta property="og:site_name" content="玲弟啊玲弟的博客">
-<meta property="og:description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
+<meta property="og:description" content="分布式事务摘要： 在做单体服务的微服务改造时，碰到的问题，大多数时候，使用本地事务就可以了，在业务拆分的时候也尽量避免了分布式事务，但是不免遇到分布式事务的情况。就稍微看了一些关于分布式事务的东西。文章写的好的人很多，我会把参考的文章放在底部，本文是自己对分布式事务的一个概括总结。 什么是分布式事务？分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103164739100.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103165116553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181103165228876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2018-12-01T12:15:44.728Z">
+<meta property="og:updated_time" content="2019-03-03T12:44:07.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xshell登录Vagrant方式">
-<meta name="twitter:description" content="Xshell登录Vagrant方式我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant， vagrant账号登录在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config12345678910111213141516">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:title" content="分布式事务浅析">
+<meta name="twitter:description" content="分布式事务摘要： 在做单体服务的微服务改造时，碰到的问题，大多数时候，使用本地事务就可以了，在业务拆分的时候也尽量避免了分布式事务，但是不免遇到分布式事务的情况。就稍微看了一些关于分布式事务的东西。文章写的好的人很多，我会把参考的文章放在底部，本文是自己对分布式事务的一个概括总结。 什么是分布式事务？分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不">
 
 
 
@@ -132,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/分布式事务浅析/">
 
 
 
 
 
-  <title>Xshell登录Vagrant方式 | 玲弟啊玲弟的博客</title>
+  <title>分布式事务浅析 | 玲弟啊玲弟的博客</title>
   
 
 
@@ -265,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/Xshell登录Vagrant方式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/分布式事务浅析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘玲弟">
@@ -282,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Xshell登录Vagrant方式</h1>
+          <h1 class="post-title" itemprop="name headline">分布式事务浅析</h1>
         
 
         <div class="post-meta">
@@ -294,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T20:12:18+08:00">
-                2018-12-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T20:43:20+08:00">
+                2019-03-03
               </time>
             
 
@@ -304,28 +299,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index">
-                    <span itemprop="name">k8s</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -354,17 +327,16 @@
       
 
       
-        <h1 id="Xshell登录Vagrant方式"><a href="#Xshell登录Vagrant方式" class="headerlink" title="Xshell登录Vagrant方式"></a>Xshell登录Vagrant方式</h1><p>我上一篇文章 介绍了vagrant 如何创建虚拟机集群，在上篇文章的基础上，用xshell 登录 虚拟机发现 默认是无法使用账号密码登录root账号，只能使用vagrant账号，密码vagrant，</p>
-<h2 id="vagrant账号登录"><a href="#vagrant账号登录" class="headerlink" title="vagrant账号登录"></a>vagrant账号登录</h2><p>在虚拟机 vagrantfile 的目录位置 打开控制台，输入vagrant ssh-config<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vagrant ssh-config</span><br><span class="line"></span><br><span class="line">Host k8s-m1</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2222</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-m1/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br><span class="line"></span><br><span class="line">Host k8s-n2</span><br><span class="line">  HostName 127.0.0.1</span><br><span class="line">  User vagrant</span><br><span class="line">  Port 2200</span><br><span class="line">  UserKnownHostsFile /dev/null</span><br><span class="line">  StrictHostKeyChecking no</span><br><span class="line">  PasswordAuthentication no</span><br><span class="line">  IdentityFile D:/vagrant-file/file1/.vagrant/machines/k8s-n2/virtualbox/private_key</span><br><span class="line">  IdentitiesOnly yes</span><br><span class="line">  LogLevel FATAL</span><br></pre></td></tr></table></figure></p>
-<p>查看 hostname ，port，IdentityFile 这三个位置</p>
-<p><img src="https://img-blog.csdnimg.cn/20181103164302684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="xshell登录"></p>
-<p>有可能不能选择密码登录，默认是用密钥登录，浏览，文件，找到 刚刚的IdentityFile ，再输入密码vagrant 就可以使用vagrant 用户 ssh登录</p>
-<h2 id="root账号登录"><a href="#root账号登录" class="headerlink" title="root账号登录"></a>root账号登录</h2><p>vagrant登陆后，切换到root账号<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo -i</span><br></pre></td></tr></table></figure></p>
-<p>设置root的密码<br><img src="https://img-blog.csdnimg.cn/20181103164739100.png" alt="在这里插入图片描述"><br>修改 /etc/ssh/sshd_config 文件，（注意，vagrant用户下这个文件是只读的，可能什么也看不见）<br>修改 ssd_config 里 PermitRootLogin属性 改为yes ，并把前面的# 去掉<br><img src="https://img-blog.csdnimg.cn/20181103165116553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>PasswordAuthentication 改为yes 并且去掉 #<br><img src="https://img-blog.csdnimg.cn/20181103165228876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zODA5NzAxMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>保存退出，重启sshd服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> systemctl restart sshd</span><br></pre></td></tr></table></figure></p>
-<p>再通过xshell连接的时候，就可以用账号密码，root来登录了</p>
-<p><strong>问题</strong>：虽然xshell里都是用127.0.0.1:2222或者2200 这种登录的，但是也可以使用自己设置的ip 例如192.16.25.11:22 去登录，这里用自己设置的ip时端口则是22。<br>设置完成以后就和自己开的虚拟机没什么两样了。</p>
+        <h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><p><strong>摘要：</strong> 在做单体服务的微服务改造时，碰到的问题，大多数时候，使用本地事务就可以了，在业务拆分的时候也尽量避免了分布式事务，但是不免遇到分布式事务的情况。就稍微看了一些关于分布式事务的东西。文章写的好的人很多，我会把参考的文章放在底部，本文是自己对分布式事务的一个概括总结。</p>
+<h4 id="什么是分布式事务？"><a href="#什么是分布式事务？" class="headerlink" title="什么是分布式事务？"></a>什么是分布式事务？</h4><p>分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4905336" target="_blank" rel="noopener">分布式系统</a>的不同节点之上。简答的打个比方说就是，A 服务的一个方法里同时调用B，C 服务拥有事务的方法，要同时保证B，C 都正确执行或者B，C全部回滚。本质上来说，分布式事务就是为了保证不同数据库的数据一致性。</p>
+<p>对于分布式事务的理论和实现方式，下面的文章总结的比较好</p>
+<blockquote>
+<p>参考文章: <a href="https://juejin.im/post/5b5a0bf9f265da0f6523913b#heading-14" target="_blank" rel="noopener">https://juejin.im/post/5b5a0bf9f265da0f6523913b#heading-14</a></p>
+</blockquote>
+<ul>
+<li><strong>基础理论：</strong> CAP理论，BASE理论</li>
+<li><strong>分布式事务模型：</strong> 2PC，3PC，TCC，Saga，MQ</li>
+</ul>
 
       
     </div>
@@ -411,9 +383,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vagrant/" rel="tag"># vagrant</a>
-          
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/分布式事务/" rel="tag"># 分布式事务</a>
           
         </div>
       
@@ -426,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/01/k8s搭建之初始环境准备-虚拟机篇（一）/" rel="next" title="k8s搭建之初始环境准备-虚拟机篇（一）">
-                <i class="fa fa-chevron-left"></i> k8s搭建之初始环境准备-虚拟机篇（一）
+              <a href="/2019/03/03/devops自动化流水构建（gitlab-gerrit-jenkins-sonar）/" rel="next" title="devops自动化流水构建（gitlab+gerrit+jenkins+sonar）">
+                <i class="fa fa-chevron-left"></i> devops自动化流水构建（gitlab+gerrit+jenkins+sonar）
               </a>
             
           </div>
@@ -436,8 +406,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/03/eureka浅析/" rel="prev" title="eureka浅析">
-                eureka浅析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/03/写博客的目的/" rel="prev" title="写博客的目的">
+                写博客的目的 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -588,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Xshell登录Vagrant方式"><span class="nav-number">1.</span> <span class="nav-text">Xshell登录Vagrant方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vagrant账号登录"><span class="nav-number">1.1.</span> <span class="nav-text">vagrant账号登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root账号登录"><span class="nav-number">1.2.</span> <span class="nav-text">root账号登录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式事务"><span class="nav-number">1.</span> <span class="nav-text">分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是分布式事务？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是分布式事务？</span></a></li></ol></li></ol></div>
             
 
           </div>

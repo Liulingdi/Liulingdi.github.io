@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="springcloud,微服务,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="netfix eureka 浅析摘要： 网上关于eureka 的介绍很多，也有很多优秀的文章可以作为参考，在文章末尾我会贴上自己看过觉得有收获或者总结性强的文章。主要内容会简单介绍 eureka 整体的架构和原理，部分代码实现，以及配置参数列表和一些注意事项。 什么是eureka？Eureka是一种基于REST（Representational State Transfer）的服务，主要用于AWS">
+<meta name="keywords" content="springcloud,微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eureka浅析">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/eureka浅析/index.html">
+<meta property="og:site_name" content="玲弟啊玲弟的博客">
+<meta property="og:description" content="netfix eureka 浅析摘要： 网上关于eureka 的介绍很多，也有很多优秀的文章可以作为参考，在文章末尾我会贴上自己看过觉得有收获或者总结性强的文章。主要内容会简单介绍 eureka 整体的架构和原理，部分代码实现，以及配置参数列表和一些注意事项。 什么是eureka？Eureka是一种基于REST（Representational State Transfer）的服务，主要用于AWS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/eureka_architecture.png">
+<meta property="og:updated_time" content="2019-03-03T12:42:02.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eureka浅析">
+<meta name="twitter:description" content="netfix eureka 浅析摘要： 网上关于eureka 的介绍很多，也有很多优秀的文章可以作为参考，在文章末尾我会贴上自己看过觉得有收获或者总结性强的文章。主要内容会简单介绍 eureka 整体的架构和原理，部分代码实现，以及配置参数列表和一些注意事项。 什么是eureka？Eureka是一种基于REST（Representational State Transfer）的服务，主要用于AWS">
+<meta name="twitter:image" content="c:/Users/Administrator/Desktop/eureka_architecture.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/eureka浅析/">
+
+
+
+
+
+  <title>eureka浅析 | 玲弟啊玲弟的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">玲弟啊玲弟的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/eureka浅析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘玲弟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玲弟啊玲弟的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">eureka浅析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T20:37:09+08:00">
+                2019-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/微服务/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="netfix-eureka-浅析"><a href="#netfix-eureka-浅析" class="headerlink" title="netfix eureka 浅析"></a>netfix eureka 浅析</h3><p>摘要： 网上关于eureka 的介绍很多，也有很多优秀的文章可以作为参考，在文章末尾我会贴上自己看过觉得有收获或者总结性强的文章。主要内容会简单介绍 eureka 整体的架构和原理，部分代码实现，以及配置参数列表和一些注意事项。</p>
+<h4 id="什么是eureka？"><a href="#什么是eureka？" class="headerlink" title="什么是eureka？"></a>什么是eureka？</h4><p>Eureka是一种基于REST（Representational State Transfer）的服务，主要用于AWS云，用于定位服务，以实现中间层服务器的负载平衡和故障转移。我们将此服务称为<strong>Eureka Server</strong>。Eureka还附带了一个基于Java的客户端组件<strong>Eureka Client</strong>，它使与服务的交互变得更加容易。客户端还有一个内置的负载均衡器，可以进行基本的循环负载均衡。在Netflix，一个更复杂的负载均衡器包含Eureka基于流量，资源使用，错误条件等多种因素提供加权负载平衡，以提供卓越的弹性。</p>
+<blockquote>
+<p>本文以官方wiki为主要参考，wiki:  <a href="https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance" target="_blank" rel="noopener">https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance</a></p>
+</blockquote>
+<p>这段是官方的翻译，说白了，就是我们现在使用的微服务架构中的注册中心，server端是一个服务注册信息中心，client端则作为信息的消费者和提供者。类似的注册中心 还有consul，zookeeper，etcd 等都可以作为注册中心，官方宣布 eureka2.x disconnected 之后，consul 或称为主流的替代方案。</p>
+<h4 id="eureka-原理及架构"><a href="#eureka-原理及架构" class="headerlink" title="eureka 原理及架构"></a>eureka 原理及架构</h4><blockquote>
+<p>官方架构图：<a href="https://github.com/Netflix/eureka/raw/master/images/eureka_architecture.png" target="_blank" rel="noopener">https://github.com/Netflix/eureka/raw/master/images/eureka_architecture.png</a></p>
+</blockquote>
+<p><img src="C:\Users\Administrator\Desktop\eureka_architecture.png" alt="eureka_architecture"></p>
+<p>服务在Eureka <strong>注册</strong>，然后发送<strong>心跳</strong>每30秒更新一次租约。如果客户端无法续订租约几次，则会在大约90秒内将其从服务器注册表中删除。注册信息和续订将复制到群集中的所有eureka节点。来自任何区域的客户端都可以查找<strong>注册表</strong>信息（每30秒发生一次）以查找其服务（可能位于任何区域中）并进行远程调用。</p>
+<h4 id="eureka-一些概念及部分源码分析"><a href="#eureka-一些概念及部分源码分析" class="headerlink" title="eureka 一些概念及部分源码分析"></a>eureka 一些概念及部分源码分析</h4><p>在架构中可以得知，分为以下几个部分：</p>
+<p>高可用框架使用的是三个server，两两注册的方式。</p>
+<ul>
+<li><p><strong>register 注册</strong> ：client 启动后发起注册，netflix源码是从第一次发起心跳（30s后）发生注册，springcloud 更改过设置，在client启动时就发起注册。 在 eureka-client 里的discoveryclient类中有一个register()法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">register</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        logger.info(PREFIX + <span class="string">"&#123;&#125;: registering service..."</span>, appPathIdentifier);</span><br><span class="line">        EurekaHttpResponse&lt;Void&gt; httpResponse;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            httpResponse = eurekaTransport.registrationClient.register(instanceInfo);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.warn(PREFIX + <span class="string">"&#123;&#125; - registration failed &#123;&#125;"</span>, appPathIdentifier, e.getMessage(), e);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (logger.isInfoEnabled()) &#123;</span><br><span class="line">            logger.info(PREFIX + <span class="string">"&#123;&#125; - registration status: &#123;&#125;"</span>, appPathIdentifier, httpResponse.getStatusCode());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> httpResponse.getStatusCode() == Status.NO_CONTENT.getStatusCode();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里小小吐槽一下，logger.info 竟然 用了 isInfoEnabled()  判断，有些多余，这个原则是为了 减少 字符串 + 操作可能带来多余的性能复合，但现在用了通配符 {} ，在logger.info 的实现中已经使用 isInfoEnabled 方法来避免了。但是源码里经常这样写，可能是为了保险？</p>
+<p>往下追踪eurekaTransport.registrationClient.register 方法可以发现，底层是使用 Jersey 实现了自己的eurekahttp 封装，jersey （一个 Java restful 框架） 还没有使用过，有空去研究一下。</p>
+<p>往上追踪呢发现 register 方法是在一个 InstanceInfoReplicator类 ，继承了runnale 是一个定时任务，二这个定时任务在@inject DiscoveryClient 的时候就执行了initScheduledTasks() 方法，在这个方法内开启了这个定时任务。</p>
+</li>
+<li><p><strong>renew 续约</strong> ：client 每30s 发生一次http请求，及上面提到的定时任务，来告诉server端，我依旧存活着。renew() 方法 与 register() 类似，都在 discoveryclient类中。服务端的续约接口自，eureka-core中的 com.netflix.eureka包下的InstanceResource类下，接口方法为renewLease()，追踪源码可以看到 心跳间隔是30s，剔除服务心跳超时时间是90s</p>
+<p>可以通过设置参数来改变时间间隔，官方建议是谨慎改变这个时间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eureka.instance.leaseRenewalIntervalInSeconds</span><br><span class="line">eureka.instance.leaseExpirationDurationInSeconds</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>getRegistery 得到服务</strong> ： client 获得server端的 实例信息，同上，有一个fetchRegistry() 和 getApplications() 的方法，客户端想要获得应用可以使用getApplication方法，会从本地缓存中获得应用，本地缓存使用，AtomicReference<applications> localRegionApps 来保存对象，保证线程安全。大量使用了这个。而 fetchRegistry() 方法则是 重新获得server端 register信息，并且更新本地缓存和远端服务端中该服务的状态。</applications></p>
+</li>
+<li><p><strong>cancel 服务下线</strong> ： 类似上面，使用的unregister() 方法。在@PreDestroy shutdown方法中调用，则是在服务关闭或者意外崩溃时，调用注销方法，包括关闭定时任务，更改自身服务状态，再向server端发送最后一次http请求。</p>
+</li>
+<li><p><strong>replicate</strong>：这里我理解为实例信息在服务端间的同步，在eureka-core 中PeerEurekaNodes 类有写，每隔10分钟更新集群节点，每隔一分钟统计最近一分钟内所有Client的续约次数，也就是接收到的心跳次数，以此来作为是否触发服务信息回收的依据之一，EurekaServer每隔60S执行一次服务信息的回收，每隔30S执行一次，更新只读响应缓存，具体代码分析参考下面的文章。</p>
+<blockquote>
+<p>eureka-server peer同步:  <a href="https://blog.csdn.net/qq_27529917/article/details/80934523" target="_blank" rel="noopener">https://blog.csdn.net/qq_27529917/article/details/80934523</a></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="eureka-的相关注意事项和问题"><a href="#eureka-的相关注意事项和问题" class="headerlink" title="eureka 的相关注意事项和问题"></a>eureka 的相关注意事项和问题</h4><ul>
+<li><p><strong>Eureka的几处缓存 (三处缓存，一处延时)</strong></p>
+<p>服务启动后最长可能需要2分钟时间才能被其它服务感知到,</p>
+<ol>
+<li>eureka-server http缓存，server端相应getApplication 从缓存中拿取</li>
+<li>eureka-client  对获取到的服务做了本地缓存，默认从本地缓存中读取 30s</li>
+<li>负载均衡的ribbon 30s缓存，缓存 eureka-client 服务列表</li>
+<li>启动延迟注册，需要等30s 后，发起心跳请求才注册</li>
+</ol>
+</li>
+<li><p><strong>服务注册信息不会被二次传播</strong></p>
+<p>如果Eureka A的peer指向了B, B的peer指向了C，那么当服务向A注册时，B中会有该服务的注册信息，但是C中没有。需要全部写在 peer 里</p>
+</li>
+<li><p><strong>多网卡环境下的IP选择问题</strong></p>
+<p>如果服务部署的机器上安装了多块网卡，它们分别对应IP地址A, B, C，此时：<br>Eureka会<strong>选择IP合法</strong>(标准ipv4地址)、<strong>索引值最小</strong>(eth0, eth1中eth0优先)且<strong>不在忽略列表中</strong>(可在<code>application.properites</code>中配置忽略哪些网卡)的网卡地址作为服务IP。<br>这个坑的详细分析见：<a href="http://blog.csdn.net/neosmith/article/details/53126924" target="_blank" rel="noopener">http://blog.csdn.net/neosmith/article/details/53126924</a></p>
+</li>
+<li><p><strong>Eureka 的自我保护模式</strong></p>
+<p>如果有任何时间，Eureka Serve接收到的续约低于为该值配置的百分比（默认为15分钟内低于85％），则服务器开启自我保护模式，即不再剔除注册列表的信息。</p>
+<p>​</p>
+</li>
+</ul>
+<p>以上问题的答案，在我参考的文章底部有，也是常见的一些问题。</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/fanhenghui/article/details/77008733" target="_blank" rel="noopener">https://blog.csdn.net/fanhenghui/article/details/77008733</a></p>
+<p><a href="https://blog.csdn.net/forezp/article/details/73017664" target="_blank" rel="noopener">https://blog.csdn.net/forezp/article/details/73017664</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatreward.png" alt="刘玲弟 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipayreward.png" alt="刘玲弟 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/springcloud/" rel="tag"># springcloud</a>
+          
+            <a href="/tags/微服务/" rel="tag"># 微服务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/01/Xshell登录Vagrant方式/" rel="next" title="Xshell登录Vagrant方式">
+                <i class="fa fa-chevron-left"></i> Xshell登录Vagrant方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/03/devops自动化流水构建（gitlab-gerrit-jenkins-sonar）/" rel="prev" title="devops自动化流水构建（gitlab+gerrit+jenkins+sonar）">
+                devops自动化流水构建（gitlab+gerrit+jenkins+sonar） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="刘玲弟">
+            
+              <p class="site-author-name" itemprop="name">刘玲弟</p>
+              <p class="site-description motion-element" itemprop="description">尽量保证每一篇博客都正确，感谢开源的你们</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Liulingdi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:750836521@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#netfix-eureka-浅析"><span class="nav-number">1.</span> <span class="nav-text">netfix eureka 浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是eureka？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是eureka？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eureka-原理及架构"><span class="nav-number">1.2.</span> <span class="nav-text">eureka 原理及架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eureka-一些概念及部分源码分析"><span class="nav-number">1.3.</span> <span class="nav-text">eureka 一些概念及部分源码分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eureka-的相关注意事项和问题"><span class="nav-number">1.4.</span> <span class="nav-text">eureka 的相关注意事项和问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; Sat Dec 01 2018 08:00:00 GMT+0800 (GMT+08:00) &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘玲弟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
