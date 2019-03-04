@@ -1368,7 +1368,6 @@
 <h4 id="eureka-原理及架构"><a href="#eureka-原理及架构" class="headerlink" title="eureka 原理及架构"></a>eureka 原理及架构</h4><blockquote>
 <p>官方架构图：<a href="https://github.com/Netflix/eureka/raw/master/images/eureka_architecture.png" target="_blank" rel="noopener">https://github.com/Netflix/eureka/raw/master/images/eureka_architecture.png</a></p>
 </blockquote>
-<p><img src="/2019/03/03/eureka浅析/C:/Users\Administrator\Desktop\eureka_architecture.png" alt="eureka_architecture"></p>
 <p>服务在Eureka <strong>注册</strong>，然后发送<strong>心跳</strong>每30秒更新一次租约。如果客户端无法续订租约几次，则会在大约90秒内将其从服务器注册表中删除。注册信息和续订将复制到群集中的所有eureka节点。来自任何区域的客户端都可以查找<strong>注册表</strong>信息（每30秒发生一次）以查找其服务（可能位于任何区域中）并进行远程调用。</p>
 <h4 id="eureka-一些概念及部分源码分析"><a href="#eureka-一些概念及部分源码分析" class="headerlink" title="eureka 一些概念及部分源码分析"></a>eureka 一些概念及部分源码分析</h4><p>在架构中可以得知，分为以下几个部分：</p>
 <p>高可用框架使用的是三个server，两两注册的方式。</p>
@@ -2301,8 +2300,8 @@
 <!-- LOCAL: You can save these files to your site and update links -->
     
         
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+        <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+        <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
     
 <!-- END LOCAL -->
 
