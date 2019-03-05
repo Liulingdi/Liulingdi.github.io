@@ -419,7 +419,7 @@
 <ol>
 <li><p><del>eureka-server http缓存，server端相应getApplication 从缓存中拿取</del></p>
 <p>eureka-server 的缓存：</p>
-<p>对于client的http请求，server端利用两个map做缓存，一个是readWriteCacheMap 一个是readOnlyCacheMap ，先请求readOnlyCacheMap ，若数据与 readWriteCacheMap  ，则同步readWriteCacheMap 的数据，readOnlyCacheMap 缓存30s 定时器更新，readWriteCacheMap  缓存180s 定时器更新</p>
+<p>对于client的http请求，server端利用两个map做缓存，一个是readWriteCacheMap 一个是readOnlyCacheMap ，先请求readOnlyCacheMap ，若数据与 readWriteCacheMap  ，则同步readWriteCacheMap 的数据，若readWriteCacheMap 还是没有，则直接从内存 registry 中获取，readOnlyCacheMap 缓存30s 定时器更新，readWriteCacheMap  缓存180s 定时器更新</p>
 <blockquote>
 <p>源码分析参考: <a href="https://www.jianshu.com/p/ae4f0c8b8135" target="_blank" rel="noopener">https://www.jianshu.com/p/ae4f0c8b8135</a></p>
 </blockquote>
