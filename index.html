@@ -1320,7 +1320,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.8k 字
+                  2.1k 字
                 </span>
               
 
@@ -1336,7 +1336,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -1396,10 +1396,19 @@
 <li><p><strong>Eureka的几处缓存 (三处缓存，一处延时)</strong></p>
 <p>服务启动后最长可能需要2分钟时间才能被其它服务感知到,</p>
 <ol>
-<li>eureka-server http缓存，server端相应getApplication 从缓存中拿取</li>
-<li>eureka-client  对获取到的服务做了本地缓存，默认从本地缓存中读取 30s</li>
-<li>负载均衡的ribbon 30s缓存，缓存 eureka-client 服务列表</li>
-<li>启动延迟注册，需要等30s 后，发起心跳请求才注册</li>
+<li><p><del>eureka-server http缓存，server端相应getApplication 从缓存中拿取</del></p>
+<p>eureka-server 的缓存：</p>
+<p>对于client的http请求，server端利用两个map做缓存，一个是readWriteCacheMap 一个是readOnlyCacheMap ，先请求readOnlyCacheMap ，若数据与 readWriteCacheMap  ，则同步readWriteCacheMap 的数据，readOnlyCacheMap 缓存30s 定时器更新，readWriteCacheMap  缓存180s 定时器更新</p>
+<blockquote>
+<p>源码分析参考: <a href="https://www.jianshu.com/p/ae4f0c8b8135" target="_blank" rel="noopener">https://www.jianshu.com/p/ae4f0c8b8135</a></p>
+</blockquote>
+</li>
+<li><p>eureka-client  对获取到的服务（30s更新）做了本地缓存，默认从本地缓存中读取 ，</p>
+</li>
+<li><p>负载均衡的ribbon 30s缓存，缓存 eureka-client 服务列表</p>
+</li>
+<li><p>启动延迟注册，需要等30s 后，发起心跳请求才注册</p>
+</li>
 </ol>
 </li>
 <li><p><strong>服务注册信息不会被二次传播</strong></p>
@@ -1417,6 +1426,14 @@
 <blockquote>
 <p><a href="https://blog.csdn.net/fanhenghui/article/details/77008733" target="_blank" rel="noopener">https://blog.csdn.net/fanhenghui/article/details/77008733</a></p>
 <p><a href="https://blog.csdn.net/forezp/article/details/73017664" target="_blank" rel="noopener">https://blog.csdn.net/forezp/article/details/73017664</a></p>
+</blockquote>
+<h4 id="生产上的eureka配置（仅参考）"><a href="#生产上的eureka配置（仅参考）" class="headerlink" title="生产上的eureka配置（仅参考）"></a>生产上的eureka配置（仅参考）</h4><p><strong>server端配置</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">## 中小规模下，自我保护模式坑比好处多，所以关闭它</span><br><span class="line">eureka.server.enableSelfPreservation=<span class="keyword">false</span></span><br><span class="line">## 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置</span><br><span class="line">## eureka.server.renewalThresholdUpdateIntervalMs=120000</span><br><span class="line"></span><br><span class="line">## 主动失效检测间隔,配置成5秒</span><br><span class="line">eureka.server.evictionIntervalTimerInMs=<span class="number">5000</span></span><br><span class="line"></span><br><span class="line">## 心跳间隔，5秒</span><br><span class="line">eureka.instance.leaseRenewalIntervalInSeconds=<span class="number">5</span></span><br><span class="line">## 没有心跳的淘汰时间，10秒</span><br><span class="line">eureka.instance.leaseExpirationDurationInSeconds=<span class="number">10</span></span><br><span class="line"></span><br><span class="line">## 禁用readOnlyCacheMap</span><br><span class="line">eureka.server. useReadOnlyResponseCache=<span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+<p><strong>client 端配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">## 心跳间隔，5秒</span><br><span class="line">eureka.instance.leaseRenewalIntervalInSeconds=5</span><br><span class="line">## 没有心跳的淘汰时间，10秒</span><br><span class="line">eureka.instance.leaseExpirationDurationInSeconds=10</span><br><span class="line"></span><br><span class="line"># 定时刷新本地缓存时间</span><br><span class="line">eureka.client.registryFetchIntervalSeconds=5</span><br><span class="line"># ribbon缓存时间</span><br><span class="line">ribbon.ServerListRefreshInterval=2000</span><br></pre></td></tr></table></figure>
+<p>主要针对缓存时间的配置，心跳缩短的弊端就是，在自我保护机制阈值的计算时候，按照每分钟计算，如果时间缩短为一倍，失败时候就会多一倍的计算，需要调整阈值，根据实际场景调试等，还有就是server的缓存机制太多层，详情看以下博客。</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/6ac4810f6f42" target="_blank" rel="noopener">https://www.jianshu.com/p/6ac4810f6f42</a></p>
 </blockquote>
 
           
@@ -2140,7 +2157,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">7.4k</span>
+    <span title="Site words total count">7.8k</span>
   
 </div>
 
